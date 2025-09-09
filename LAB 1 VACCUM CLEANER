@@ -1,0 +1,25 @@
+ Simple Vacuum Cleaner Agent with 2 rooms
+
+# Environment state: 0 = Clean, 1 = Dirty
+rooms = {"A": 1, "B": 0}   # Room A is dirty, Room B is clean
+vacuum_location = "A"
+
+def vacuum_agent(location, state):
+    if state == 1:
+        print(f"Vacuum in {location}: Room dirty → CLEANING")
+        rooms[location] = 0
+    else:
+        print(f"Vacuum in {location}: Room clean → MOVE")
+        return "B" if location == "A" else "A"
+    return location
+
+# Run agent until both rooms are clean
+while any(rooms.values()):
+    vacuum_location = vacuum_agent(vacuum_location, rooms[vacuum_location])
+
+print("All rooms are clean:", rooms)
+
+
+output:
+Vacuum in A: Room dirty → CLEANING
+All rooms are clean: {'A': 0, 'B': 0}
